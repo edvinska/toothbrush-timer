@@ -1,3 +1,7 @@
+<div class="puzzle">
+  <img src="super_dog.png" id="superdog" alt="Super Dog" />
+</div>
+
 let time = 120;
 let interval = null;
 
