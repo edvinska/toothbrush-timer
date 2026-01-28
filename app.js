@@ -1,4 +1,5 @@
-const TOTAL_TIME = 60; // 1 minute
+const TOTAL_TIME = 60; // seconds
+
 let time = TOTAL_TIME;
 let interval = null;
 
@@ -6,38 +7,32 @@ const timerEl = document.getElementById("timer");
 const startBtn = document.getElementById("start");
 const superdog = document.getElementById("superdog");
 
-
-let time = 120;
-let interval = null;
-
-const timerEl = document.getElementById("timer");
-const startBtn = document.getElementById("start");
-
-function updateDisplay() {
-  const seconds = time % 60;
-  timerEl.textContent = `00:${seconds.toString().padStart(2, "0")}`;
+function updateTimer() {
+  timerEl.textContent = `00:${time.toString().padStart(2, "0")}`;
 }
 
-function revealSuperDog() {
+function updatePuzzle() {
   const progress = (TOTAL_TIME - time) / TOTAL_TIME;
-  const blur = 20 - progress * 20;       // 20px → 0px
-  const brightness = 0.3 + progress * 0.7; // 0.3 → 1
-  const scale = 1.5 - progress * 0.5;     // 1.5 → 1
+
+  const blur = 22 - progress * 22;          // 22px → 0px
+  const brightness = 0.25 + progress * 0.75; // 0.25 → 1
+  const scale = 1.6 - progress * 0.6;        // 1.6 → 1
 
   superdog.style.filter = `blur(${blur}px) brightness(${brightness})`;
   superdog.style.transform = `scale(${scale})`;
+}
 
 startBtn.addEventListener("click", () => {
   if (interval) return;
 
   time = TOTAL_TIME;
-  updateDisplay();
-  revealSuperDog();
+  updateTimer();
+  updatePuzzle();
 
   interval = setInterval(() => {
     time--;
-    updateDisplay();
-    revealSuperDog();   // 🔥 every second reveal
+    updateTimer();
+    updatePuzzle(); // 🔥 EVERY SECOND
 
     if (time <= 0) {
       clearInterval(interval);
@@ -46,7 +41,7 @@ startBtn.addEventListener("click", () => {
       superdog.style.filter = "none";
       superdog.style.transform = "scale(1)";
 
-      alert("🎉 SUPER DOG REVEALED! GREAT JOB!");
+      alert("🎉 SUPER DOG SAVED THE TEETH!");
     }
   }, 1000);
 });
